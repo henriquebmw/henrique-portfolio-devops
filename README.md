@@ -6,12 +6,10 @@
 
 ---
 
-### 🖥️ Windows XP Portfolio Preview  
+## 🖥️ macOS Portfolio Preview
 *(Click to open)*
 
-!XP Preview
-
----
+[![Preview](https://henriquebmw.github.io/henrique-portfolio-devops/assets/bliss_like.png
 
 ## 🔧 DevOps Portfolio Contents
 
