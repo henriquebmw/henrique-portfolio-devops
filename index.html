@@ -58,8 +58,8 @@
   <audio id="hoverSound" src="assets/hover.wav" preload="auto"></audio>
   <script src="js/password.js"></script>
   <script>
-    function tickClock(){var d=new Date();var el=document.getElementById('clock');if(el){el.textContent=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});} }
-    tickClock(); setInterval(tickClock,30000);
+    function tickClock(){ var d=new Date(); var el=document.getElementById('clock'); if(el){ el.textContent=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); } }
+    tickClock(); setInterval(tickClock, 30000);
   </script>
 </body>
 </html>

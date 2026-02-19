@@ -1,6 +1,6 @@
 // macOS Terminal CV unlock (SHA-256 hash only)
 const PASSWORD_HASH = "52659753d12ea7209687fe5cfeb8c4fa496af871acf621e708c1aa6782bfa5ce"; // not reversible
-const CV_PATH = "assets/CV_henrique_2025.pdf";             // your real CV path
+const CV_PATH = "assets/Henrique.Teixeira_CV_2025.pdf";             // your real CV path
 
 async function sha256(message) {
   const encoder = new TextEncoder();
