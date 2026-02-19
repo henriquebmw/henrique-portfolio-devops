@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-<meta charset="UTF-8" />
+<meta charset='UTF-8'/>
 <title>Henrique Teixeira — macOS Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="style_macos.css" />
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
+<link rel='stylesheet' href='style_macos.css'/>
 </head>
 <body>
-<header class="mac-menu"><div class="mac-left"><span class="apple"></span> Portfolio</div><div class="mac-right" id="clock"></div></header>
-<main class="center-stage">
-<section class="mac-window">
-<div class="mac-titlebar"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span><div class="mac-title">Welcome — Henrique Teixeira</div></div>
-<div class="mac-content"><p class="lead">DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
-<div class="icons-row">
-<a class="mac-icon" href="#" id="cvLink"><img src="assets/cv.png"/><span>My Curriculum</span></a>
-<a class="mac-icon" href="https://github.com/henriquebmw/henrique-portfolio-devops" target="_blank"><img src="assets/github.png"/><span>GitHub</span></a>
-</div></div>
-</section>
-</main>
-<div id="terminalOverlay" class="terminal-overlay" style="display:none"><div class="terminal-window"><div class="terminal-titlebar"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span><div class="terminal-title-text">Terminal — CV Unlock</div></div><div class="terminal-body"><pre>henrique@portfolio ~ % cv unlock</pre><pre>Password: <input id="cvPwdInput" type="password" class="term-input" autofocus /></pre><div class="term-actions"><button id="termCancel" class="btn">Cancel</button><button id="termUnlock" class="btn primary">Unlock</button></div><div id="termFeedback" class="term-feedback"></div></div></div></div>
-<script src="js/password.js"></script>
+<header class='mac-menu'><div class='mac-left'> Portfolio</div><div class='mac-right' id='clock'></div></header>
+<main class='center-stage'>
+<section class='mac-window'>
+<div class='mac-titlebar'><span class='traffic red'></span><span class='traffic yellow'></span><span class='traffic green'></span><div class='mac-title'>Welcome — Henrique Teixeira</div></div>
+<div class='mac-content'>
+<p class='lead'>DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
+<div class='icons-row'>
+<a class='mac-icon' href='#' id='cvLink'><img src='assets/cv.png'/><span>My Curriculum</span></a>
+<a class='mac-icon' href='https://github.com/henriquebmw/henrique-portfolio-devops' target='_blank'><img src='assets/github.png'/><span>GitHub</span></a>
+</div></div></section></main>
+
+<div id='terminalOverlay' class='terminal-overlay' style='display:none'>
+<div class='terminal-window'>
+<div class='terminal-titlebar'><span class='traffic red'></span><span class='traffic yellow'></span><span class='traffic green'></span><div class='terminal-title-text'>Terminal — CV Unlock</div></div>
+<div class='terminal-body'>
+<pre>henrique@portfolio ~ % cv unlock</pre>
+<pre>Password: <input id='cvPwdInput' type='password' class='term-input' autofocus /></pre>
+<div class='term-actions'><button id='termCancel' class='btn'>Cancel</button><button id='termUnlock' class='btn primary'>Unlock</button></div>
+<div id='termFeedback' class='term-feedback'></div>
+</div></div></div>
+<script src='js/password.js'></script>
 </body></html>
