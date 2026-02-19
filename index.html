@@ -2,75 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Windows XP - Henrique Teixeira</title>
+  <title>Henrique Teixeira — DevOps Portfolio (macOS style)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- macOS-only stylesheet -->
+  style.css
   <style>
-    /* Subtle font smoothing for a more Linux/macOS feel */
+    /* Subtle font smoothing for macOS/Linux look */
     body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   </style>
 </head>
 <body>
 
-  <!-- ======================== Boot Screen ======================== -->
-  <div id="boot-screen" class="boot-screen">
-    <div class="boot-logo">Windows <span class="xp">XP</span></div>
-    <div class="boot-bar"><div class="boot-bar-fill"></div></div>
-  </div>
-
-  <!-- ======================== Login Box ======================== -->
-  <div class="login-box" id="loginBox" style="display:none">
-    <div class="titlebar">
-      <div class="title">Welcome</div>
-      <button id="shutdownBtn" class="shutdown-btn" title="Shut Down">⏻</button>
+  <!-- ===== macOS Menu Bar (simplified) ===== -->
+  <header class="mac-menu">
+    <div class="mac-left">
+      <span class="apple"></span>
+      <span class="menu-item">Henrique</span>
+      <span class="menu-item">Portfolio</span>
+      <span class="menu-item">About</span>
     </div>
-
-    <div class="click-hint">Click your username to begin</div>
-
-    <div class="user-card" id="userCard">
-      <img src="assets/user.png" class="avatar" alt="User" />
-      <div class="username">Henrique Teixeira</div>
+    <div class="mac-right">
+      <span id="clock"></span>
     </div>
+  </header>
 
-    <div class="icons-row" id="iconsRow" style="display:none">
-      <!-- CV with password gate (handled by js/password.js) -->
-      <a class="xp-icon" href="#" id="cvLink">
-        <img src="assets/cv.png" alt="CV" />
-        <span>My Curriculum</span>
-      </a>
-
-      <!-- GitHub -->
-      <a class="xp-icon" href="https://github.com/henriquebmw/henrique-portfolio-devops" target="_blank" rel="noopener noreferrer">
-        <img src="assets/github.png" alt="GitHub" />
-        <span>GitHub</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- ======================== Shutdown Modal ======================== -->
-  <div class="shutdown-modal" id="shutdownModal" style="display:none">
-    <div class="shutdown-box">
-      <img src="assets/shutdown.png" class="shutdown-icon" />
-      <div class="shutdown-title">Turn off computer</div>
-      <div class="shutdown-actions">
-        <button id="cancelShutdown" class="btn">Cancel</button>
-        <button id="confirmShutdown" class="btn danger">Shut Down</button>
+  <!-- ===== Main Window (macOS card) ===== -->
+  <main class="center-stage">
+    <section class="mac-window">
+      <div class="mac-titlebar">
+        <span class="traffic red"></span>
+        <span class="traffic yellow"></span>
+        <span class="traffic green"></span>
+        <div class="mac-title">Welcome — Henrique Teixeira</div>
       </div>
-    </div>
-  </div>
 
-  <!-- ======================== macOS-style Terminal Password Modal ======================== -->
-  <div id="terminalOverlay" class="terminal-overlay" style="display:none">
-    <div class="terminal-window" role="dialog" aria-label="Terminal – CV Unlock" aria-modal="true">
+      <div class="mac-content">
+        <p class="lead">DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
+
+        <div class="icons-row">
+          <!-- CV (protected) -->
+          #
+            assets/cv.png
+            <span>My Curriculum</span>
+          </a>
+
+          <!-- GitHub -->
+          https://github.com/henriquebmw/henrique-portfolio-devops
+            <img src="assets/github.png"  <span>GitHub</span>
+          alt="GitHub icon"
+          </a>
+        </div>
+
+        <div class="pill-links">
+          <a href="#projects" class="pill">Projects</a>
+          <a href="#stack" class="pill">Tech Stack</a>
+          <a href="#contact" class="pill">Contact</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== macOS Terminal Password Popup (for CV) ===== -->
+  <div id="terminalOverlay" class="terminal-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Terminal — CV Unlock">
+    <div class="terminal-window">
       <div class="terminal-titlebar">
-        <span class="traffic traffic-red" aria-hidden="true"></span>
-        <span class="traffic traffic-yellow" aria-hidden="true"></span>
-        <span class="traffic traffic-green" aria-hidden="true"></span>
+        <span class="traffic red"></span>
+        <span class="traffic yellow"></span>
+        <span class="traffic green"></span>
         <div class="terminal-title-text">Terminal — CV Unlock</div>
       </div>
-      <div class="terminal-body" id="terminalBody">
+      <div class="terminal-body">
         <pre class="term-line">henrique@portfolio ~ % <span class="term-cmd">cv unlock</span></pre>
         <pre class="term-line">Password: <input id="cvPwdInput" type="password" class="term-input" autofocus /></pre>
+
         <div class="term-actions">
           <button id="termCancel" class="btn">Cancel</button>
           <button id="termUnlock" class="btn primary">Unlock</button>
@@ -80,58 +84,28 @@
     </div>
   </div>
 
-  <!-- Hover sound -->
-  <audio id="hoverSound" src="assets/hover.wav" preload="auto"></audio>
-
-  <!-- Core interactions (boot, login, shutdown, hover) -->
+  <!-- ===== Minimal helpers ===== -->
   <script>
-    // ========== Boot animation ==========
-    setTimeout(() => {
-      document.getElementById('boot-screen').style.opacity = 0;
-      setTimeout(() => {
-        document.getElementById('boot-screen').style.display = 'none';
-        document.body.style.backgroundImage = 'url("assets/bliss_like.png")';
-        const box = document.getElementById('loginBox');
-        box.style.display = 'block';
-        box.classList.add('fade-in');
-      }, 600);
-    }, 1400);
+    // Live clock (menu bar)
+    function tickClock(){
+      const el = document.getElementById('clock');
+      const d = new Date();
+      el.textContent = d.toLocaleString(undefined, { hour: '2-digit', minute: '2-digit' });
+    }
+    tickClock(); setInterval(tickClock, 30000);
 
-    // ========== Login reveal ==========
-    const userCard = document.getElementById('userCard');
-    const iconsRow = document.getElementById('iconsRow');
-    userCard.addEventListener('click', () => {
-      userCard.classList.add('selected');
-      iconsRow.style.display = 'flex';
-    });
-
-    // ========== Hover sound ==========
-    const hoverSound = document.getElementById('hoverSound');
-    function playHover(){ try { hoverSound.currentTime = 0; hoverSound.play(); } catch(e){} }
-    document.querySelectorAll('.xp-icon, .user-card, .shutdown-btn, .btn').forEach(el => {
-      el.addEventListener('mouseenter', playHover);
-    });
-
-    // ========== Shutdown overlay ==========
-    const shutdownBtn = document.getElementById('shutdownBtn');
-    const shutdownModal = document.getElementById('shutdownModal');
-    const cancelShutdown = document.getElementById('cancelShutdown');
-    const confirmShutdown = document.getElementById('confirmShutdown');
-    shutdownBtn.addEventListener('click', () => shutdownModal.style.display = 'flex');
-    cancelShutdown.addEventListener('click', () => shutdownModal.style.display = 'none');
-    confirmShutdown.addEventListener('click', () => {
-      const overlay = document.createElement('div');
-      overlay.style.position = 'fixed';
-      overlay.style.inset = '0';
-      overlay.style.background = '#000';
-      overlay.style.opacity = '0';
-      overlay.style.transition = 'opacity .7s ease';
-      document.body.appendChild(overlay);
-      setTimeout(() => overlay.style.opacity = '1', 20);
+    // Sound hover (optional: keep if you like the effect)
+    document.addEventListener('DOMContentLoaded', () => {
+      const hoverSound = document.getElementById('hoverSound');
+      function playHover(){ try { hoverSound.currentTime = 0; hoverSound.play(); } catch(e){} }
+      document.querySelectorAll('.mac-icon, .btn, .pill').forEach(el => el.addEventListener('mouseenter', playHover));
     });
   </script>
 
+  <!-- Hover sound (reuse your existing asset) -->
+  <audio id="hoverSound" preload="none"><source src="assets/hover.wav" type="audio/wav"></audio>
+
   <!-- Password logic (SHA-256 hashed) -->
-  <script src="js/password.js"></script>
+  js/password.js</script>
 </body>
 </html>
