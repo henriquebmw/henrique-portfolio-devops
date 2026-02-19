@@ -1,31 +1,65 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-<meta charset='UTF-8'/>
-<title>Henrique Teixeira — macOS Portfolio</title>
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
-<link rel='stylesheet' href='style_macos.css'/>
+  <meta charset="UTF-8" />
+  <title>Henrique Teixeira — macOS Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style_macos.css" />
 </head>
 <body>
-<header class='mac-menu'><div class='mac-left'> Portfolio</div><div class='mac-right' id='clock'></div></header>
-<main class='center-stage'>
-<section class='mac-window'>
-<div class='mac-titlebar'><span class='traffic red'></span><span class='traffic yellow'></span><span class='traffic green'></span><div class='mac-title'>Welcome — Henrique Teixeira</div></div>
-<div class='mac-content'>
-<p class='lead'>DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
-<div class='icons-row'>
-<a class='mac-icon' href='#' id='cvLink'><img src='assets/cv.png'/><span>My Curriculum</span></a>
-<a class='mac-icon' href='https://github.com/henriquebmw/henrique-portfolio-devops' target='_blank'><img src='assets/github.png'/><span>GitHub</span></a>
-</div></div></section></main>
+  <header class="mac-menu"><div class="mac-left"> Portfolio</div><div class="mac-right" id="clock"></div></header>
+  <main class="center-stage">
+    <section class="mac-window">
+      <div class="mac-titlebar">
+        <span class="traffic red"></span>
+        <span class="traffic yellow"></span>
+        <span class="traffic green"></span>
+        <div class="mac-title">Welcome — Henrique Teixeira</div>
+      </div>
+      <div class="mac-content">
+        <p class="lead">DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
+        <div class="icons-row">
+          <a class="mac-icon" href="#" id="cvLink"><img src="assets/dock/cv.png" alt="CV" /><span>My Curriculum</span></a>
+          <a class="mac-icon" href="https://github.com/henriquebmw/henrique-portfolio-devops" target="_blank" rel="noopener noreferrer"><img src="assets/dock/github.png" alt="GitHub" /><span>GitHub</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <nav class="dock">
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/docker" target="_blank"><img src="assets/dock/docker.png" alt="Docker" /><span>Docker</span></a>
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/kubernetes" target="_blank"><img src="assets/dock/kubernetes.png" alt="Kubernetes" /><span>Kubernetes</span></a>
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/terraform" target="_blank"><img src="assets/dock/terraform.png" alt="Terraform" /><span>Terraform</span></a>
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/ansible" target="_blank"><img src="assets/dock/ansible.png" alt="Ansible" /><span>Ansible</span></a>
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/cicd" target="_blank"><img src="assets/dock/cicd.png" alt="CI/CD" /><span>CI/CD</span></a>
+    <a class="dock-item" href="https://github.com/henriquebmw/henrique-portfolio-devops/tree/main/python" target="_blank"><img src="assets/dock/python.png" alt="Python" /><span>Python</span></a>
+    <a class="dock-item" href="#" id="dockCv"><img src="assets/dock/cv.png" alt="CV" /><span>CV</span></a>
+  </nav>
 
-<div id='terminalOverlay' class='terminal-overlay' style='display:none'>
-<div class='terminal-window'>
-<div class='terminal-titlebar'><span class='traffic red'></span><span class='traffic yellow'></span><span class='traffic green'></span><div class='terminal-title-text'>Terminal — CV Unlock</div></div>
-<div class='terminal-body'>
-<pre>henrique@portfolio ~ % cv unlock</pre>
-<pre>Password: <input id='cvPwdInput' type='password' class='term-input' autofocus /></pre>
-<div class='term-actions'><button id='termCancel' class='btn'>Cancel</button><button id='termUnlock' class='btn primary'>Unlock</button></div>
-<div id='termFeedback' class='term-feedback'></div>
-</div></div></div>
-<script src='js/password.js'></script>
-</body></html>
+  <div id="terminalOverlay" class="terminal-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Terminal — CV Unlock">
+    <div class="terminal-window">
+      <div class="terminal-titlebar">
+        <span class="traffic red"></span>
+        <span class="traffic yellow"></span>
+        <span class="traffic green"></span>
+        <div class="terminal-title-text">Terminal — CV Unlock</div>
+      </div>
+      <div class="terminal-body">
+        <pre class="term-line">henrique@portfolio ~ % <span class="term-cmd">cv unlock</span></pre>
+        <pre class="term-line">Password: <input id="cvPwdInput" type="password" class="term-input" autofocus /></pre>
+        <div class="term-actions">
+          <button id="termCancel" class="btn">Cancel</button>
+          <button id="termUnlock" class="btn primary">Unlock</button>
+        </div>
+        <div id="termFeedback" class="term-feedback" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="hoverSound" src="assets/hover.wav" preload="auto"></audio>
+  <script src="js/password.js"></script>
+  <script>
+    function tickClock(){var d=new Date();var el=document.getElementById('clock');if(el){el.textContent=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});} }
+    tickClock(); setInterval(tickClock,30000);
+  </script>
+</body>
+</html>
