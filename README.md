@@ -1,52 +1,58 @@
 # Hi, I'm Henrique 👋
 ### 🚀 DevOps Engineer — Kubernetes | Terraform | CI/CD | Docker | Python  
 
-💻 **My interactive Windows XP Portfolio:**  
+💻 **My macOS‑style DevOps Portfolio (with Terminal‑protected CV):**  
 👉 https://henriquebmw.github.io/henrique-portfolio-devops/
 
 ---
 
-## 🖥️ macOS Portfolio Preview
-*(Click to open)*
+## 🖥️ macOS Portfolio Preview  
+*(Click the image to open the interactive site)*
 
-[![Preview](https://henriquebmw.github.io/henrique-portfolio-devops/assets/bliss_like.png
-
-## 🔧 DevOps Portfolio Contents
+[![Preview](https://henriqu Portfolio Contents
 
 ### 🐳 Docker  
-- Flask app example (production Dockerfile)  
-- Docker Compose orchestration
+- Flask application example (production Dockerfile)  
+- Docker Compose orchestration  
 
 ### ☸️ Kubernetes  
 - Deployment  
 - Service  
 - Ingress  
 - Kustomize overlays  
-- Helm chart example
+- Helm chart example  
 
 ### 🔥 CI/CD  
 - GitHub Actions pipeline  
-- Jenkinsfile pipeline
+- Jenkinsfile pipeline  
 
 ### ⚙️ Ansible  
 - Role-based structure  
-- Inventories for dev/prod  
+- Dev/Prod inventories  
 - Playbooks with tasks & handlers  
 
 ### ☁️ Terraform  
 - AWS infra example  
 - Azure infra example  
-- Reusable module  
+- Reusable Terraform module  
 
 ### 🐍 Python Automation  
-- CI tools  
-- Artifactory utility  
-- Health check scripts  
+- CI helper tools  
+- Artifactory uploader utility  
+- Log health‑check scripts  
 
 ---
 
-### 📄 CV  
-👉 `assets/Henrique.Teixeira_CV_2025.pdf`  
-(Now updated and fully sanitized)
+## 📄 CV (Protected Access)  
+Your CV is available on the macOS‑style site via a **Terminal password popup**.  
+The password is validated using **SHA‑256 hashing** (no plain text stored).  
+
+📁 PDF stored at:  
+`assets/CV_henrique_2025.pdf`  
+*(fully sanitized)*  
 
 ---
+
+## ℹ️ About  
+This repository contains my full DevOps engineering portfolio:  
+Kubernetes · Terraform · Ansible · Python · Docker · CI/CD
