@@ -1,0 +1,9 @@
+
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') { steps { checkout scm } }
+    stage('Terraform Validate') { steps { sh 'cd terraform/aws-infra && terraform fmt -check && terraform validate' } }
+    stage('Build Docker') { steps { sh 'docker build -t xp-portfolio:dev docker/examples/flask_app' } }
+  }
+}

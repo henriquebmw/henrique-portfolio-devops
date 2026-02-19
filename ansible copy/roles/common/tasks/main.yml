@@ -1,0 +1,16 @@
+
+---
+- name: Ensure base packages
+  apt:
+    name:
+      - git
+      - curl
+    state: present
+  become: true
+
+- name: Create dev user
+  user:
+    name: dev
+    shell: /bin/bash
+    state: present
+  become: true

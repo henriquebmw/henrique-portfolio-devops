@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "xp-portfolio.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "xp-portfolio.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "xp-portfolio.name" . }}
+    spec:
+      containers:
+      - name: web
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 80
