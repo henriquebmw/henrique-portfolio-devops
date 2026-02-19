@@ -1,111 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Henrique Teixeira — DevOps Portfolio (macOS style)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- macOS-only stylesheet -->
-  style_macos.css
-  <style>
-    /* Subtle font smoothing for macOS/Linux look */
-    body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  </style>
+<meta charset="UTF-8" />
+<title>Henrique Teixeira — macOS Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="style_macos.css" />
 </head>
 <body>
-
-  <!-- ===== macOS Menu Bar (simplified) ===== -->
-  <header class="mac-menu">
-    <div class="mac-left">
-      <span class="apple"></span>
-      <span class="menu-item">Henrique</span>
-      <span class="menu-item">Portfolio</span>
-      <span class="menu-item">About</span>
-    </div>
-    <div class="mac-right">
-      <span id="clock"></span>
-    </div>
-  </header>
-
-  <!-- ===== Main Window (macOS card) ===== -->
-  <main class="center-stage">
-    <section class="mac-window">
-      <div class="mac-titlebar">
-        <span class="traffic red"></span>
-        <span class="traffic yellow"></span>
-        <span class="traffic green"></span>
-        <div class="mac-title">Welcome — Henrique Teixeira</div>
-      </div>
-
-      <div class="mac-content">
-        <p class="lead">DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
-
-        <div class="icons-row">
-          <!-- CV (protected) -->
-          #
-            assets/cv.png
-            <span>My Curriculum</span>
-          </a>
-
-          <!-- GitHub -->
-          https://github.com/henriquebmw/henrique-portfolio-devops
-            <img src="assets/github.png"  <span>GitHub</span>
-          alt="GitHub icon"
-          </a>
-        </div>
-
-        <div class="pill-links">
-          <a href="#projects" class="pill">Projects</a>
-          <a href="#stack" class="pill">Tech Stack</a>
-          <a href="#contact" class="pill">Contact</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ===== macOS Terminal Password Popup (for CV) ===== -->
-  <div id="terminalOverlay" class="terminal-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Terminal — CV Unlock">
-    <div class="terminal-window">
-      <div class="terminal-titlebar">
-        <span class="traffic red"></span>
-        <span class="traffic yellow"></span>
-        <span class="traffic green"></span>
-        <div class="terminal-title-text">Terminal — CV Unlock</div>
-      </div>
-      <div class="terminal-body">
-        <pre class="term-line">henrique@portfolio ~ % <span class="term-cmd">cv unlock</span></pre>
-        <pre class="term-line">Password: <input id="cvPwdInput" type="password" class="term-input" autofocus /></pre>
-
-        <div class="term-actions">
-          <button id="termCancel" class="btn">Cancel</button>
-          <button id="termUnlock" class="btn primary">Unlock</button>
-        </div>
-        <div id="termFeedback" class="term-feedback" aria-live="polite"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== Minimal helpers ===== -->
-  <script>
-    // Live clock (menu bar)
-    function tickClock(){
-      const el = document.getElementById('clock');
-      const d = new Date();
-      el.textContent = d.toLocaleString(undefined, { hour: '2-digit', minute: '2-digit' });
-    }
-    tickClock(); setInterval(tickClock, 30000);
-
-    // Sound hover (optional: keep if you like the effect)
-    document.addEventListener('DOMContentLoaded', () => {
-      const hoverSound = document.getElementById('hoverSound');
-      function playHover(){ try { hoverSound.currentTime = 0; hoverSound.play(); } catch(e){} }
-      document.querySelectorAll('.mac-icon, .btn, .pill').forEach(el => el.addEventListener('mouseenter', playHover));
-    });
-  </script>
-
-  <!-- Hover sound (reuse your existing asset) -->
-  <audio id="hoverSound" preload="none"><source src="assets/hover.wav" type="audio/wav"></audio>
-
-  <!-- Password logic (SHA-256 hashed) -->
-  js/password.js</script>
-</body>
-</html>
+<header class="mac-menu"><div class="mac-left"><span class="apple"></span> Portfolio</div><div class="mac-right" id="clock"></div></header>
+<main class="center-stage">
+<section class="mac-window">
+<div class="mac-titlebar"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span><div class="mac-title">Welcome — Henrique Teixeira</div></div>
+<div class="mac-content"><p class="lead">DevOps Engineer — Kubernetes · Terraform · CI/CD · Docker · Python</p>
+<div class="icons-row">
+<a class="mac-icon" href="#" id="cvLink"><img src="assets/cv.png"/><span>My Curriculum</span></a>
+<a class="mac-icon" href="https://github.com/henriquebmw/henrique-portfolio-devops" target="_blank"><img src="assets/github.png"/><span>GitHub</span></a>
+</div></div>
+</section>
+</main>
+<div id="terminalOverlay" class="terminal-overlay" style="display:none"><div class="terminal-window"><div class="terminal-titlebar"><span class="traffic red"></span><span class="traffic yellow"></span><span class="traffic green"></span><div class="terminal-title-text">Terminal — CV Unlock</div></div><div class="terminal-body"><pre>henrique@portfolio ~ % cv unlock</pre><pre>Password: <input id="cvPwdInput" type="password" class="term-input" autofocus /></pre><div class="term-actions"><button id="termCancel" class="btn">Cancel</button><button id="termUnlock" class="btn primary">Unlock</button></div><div id="termFeedback" class="term-feedback"></div></div></div></div>
+<script src="js/password.js"></script>
+</body></html>
