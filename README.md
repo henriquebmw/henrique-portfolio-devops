@@ -6,10 +6,10 @@
 
 ---
 
-## 🖥️ macOS Portfolio Preview  
-*(Click the image to open the interactive site)*
+## 🖥️ macOS Portfolio Preview
+*(Click to open the interactive site)*
 
-[![Preview](https://henriqu Portfolio Contents
+!Preview
 
 ### 🐳 Docker  
 - Flask application example (production Dockerfile)  
