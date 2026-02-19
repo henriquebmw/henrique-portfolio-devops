@@ -1,37 +1,68 @@
-html, body { height:100%; }
-body{
-  margin:0;
+/* =================== Base & Background =================== */
+html, body { height: 100%; }
+body {
+  margin: 0;
   background: linear-gradient(#3a6ee8, #5a8bf2);
   font-family: Tahoma, Geneva, sans-serif;
-  display:flex; align-items:center; justify-content:center;
+  display: flex; align-items: center; justify-content: center;
 }
-.boot-screen{ position:fixed; inset:0; background:#000; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity .6s ease; }
-.boot-logo{ font-size:34px; font-weight:bold; margin-bottom:20px; }
-.boot-logo .xp{ color:#ffb400; }
-.boot-bar{ width:300px; height:12px; background:#222; border-radius:6px; overflow:hidden; box-shadow: inset 0 0 6px rgba(255,255,255,.2);} 
-.boot-bar-fill{ width:0; height:100%; background:linear-gradient(90deg,#1e90ff,#66ccff); animation: load 1.2s ease-in-out forwards; }
-@keyframes load{ to { width:100%; } }
-.login-box{ width:520px; background:#ece9d8; border:3px solid #0a246a; border-radius:8px; box-shadow:0 0 25px rgba(0,0,0,.5); padding:18px 18px 28px; }
-.fade-in{ animation:fade .5s ease both; }
-@keyframes fade{ from{ opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
-.titlebar{ display:flex; align-items:center; justify-content:space-between; background:linear-gradient(#2a5bd7,#0a3fa6); color:#fff; padding:8px 10px; border-radius:4px; margin-bottom:18px; box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
-.titlebar .title{ font-weight:bold; }
-.shutdown-btn{ background:#c0392b; border:none; color:#fff; width:28px; height:28px; border-radius:4px; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,.4); }
-.shutdown-btn:hover{ filter:brightness(1.1); }
-.click-hint{ color:#0a246a; font-weight:bold; text-align:center; margin:12px 0 6px; }
-.user-card{ display:flex; flex-direction:column; align-items:center; cursor:pointer; padding:10px; border-radius:10px; transition: transform .1s ease, box-shadow .1s ease; }
-.user-card:hover{ transform:translateY(-2px); }
-.user-card.selected{ box-shadow:0 0 0 3px #0a246a inset; }
-.avatar{ width:120px; height:120px; border-radius:14px; border:3px solid #0a246a; background:#fff; }
-.username{ margin-top:8px; font-weight:bold; }
-.icons-row{ display:flex; justify-content:space-around; margin-top:18px; }
-.xp-icon{ width:120px; text-align:center; text-decoration:none; }
-.xp-icon img{ width:64px; height:64px; image-rendering:pixelated; }
-.xp-icon span{ display:block; margin-top:4px; color:#000080; text-decoration:underline; font-size:14px; }
-.shutdown-modal{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; }
-.shutdown-box{ width:360px; background:#ece9d8; border:3px solid #0a246a; border-radius:8px; padding:20px; text-align:center; }
-.shutdown-icon{ width:64px; height:64px; }
-.shutdown-title{ font-size:20px; color:#0a246a; font-weight:bold; margin:10px 0 20px; }
-.btn{ background:#e0e0e0; border:1px solid #777; padding:8px 14px; border-radius:4px; cursor:pointer; margin:0 6px; }
-.btn:hover{ filter:brightness(1.06); }
-.btn.danger{ background:#c0392b; color:#fff; border-color:#8e2b22; }
+
+/* =================== Boot Screen =================== */
+.boot-screen { position: fixed; inset: 0; background: #000; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .6s ease; }
+.boot-logo { font-size: 34px; font-weight: bold; margin-bottom: 20px; }
+.boot-logo .xp { color: #ffb400; }
+.boot-bar { width: 300px; height: 12px; background: #222; border-radius: 6px; overflow: hidden; box-shadow: inset 0 0 6px rgba(255,255,255,.2); }
+.boot-bar-fill { width: 0; height: 100%; background: linear-gradient(90deg,#1e90ff,#66ccff); animation: load 1.2s ease-in-out forwards; }
+@keyframes load { to { width: 100%; } }
+
+/* =================== Login Window =================== */
+.login-box { width: 520px; background: #ece9d8; border: 3px solid #0a246a; border-radius: 8px; box-shadow: 0 0 25px rgba(0,0,0,.5); padding: 18px 18px 28px; }
+.fade-in { animation: fade .5s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+.titlebar { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(#2a5bd7,#0a3fa6); color: #fff; padding: 8px 10px; border-radius: 4px; margin-bottom: 18px; box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
+.titlebar .title { font-weight: bold; }
+.shutdown-btn { background: #c0392b; border: none; color: #fff; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.4); }
+.shutdown-btn:hover { filter: brightness(1.1); }
+.click-hint { color: #0a246a; font-weight: bold; text-align: center; margin: 12px 0 6px; }
+.user-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 10px; border-radius: 10px; transition: transform .1s ease, box-shadow .1s ease; }
+.user-card:hover { transform: translateY(-2px); }
+.user-card.selected { box-shadow: 0 0 0 3px #0a246a inset; }
+.avatar { width: 120px; height: 120px; border-radius: 14px; border: 3px solid #0a246a; background: #fff; }
+.username { margin-top: 8px; font-weight: bold; }
+.icons-row { display: flex; justify-content: space-around; margin-top: 18px; }
+.xp-icon { width: 120px; text-align: center; text-decoration: none; }
+.xp-icon img { width: 64px; height: 64px; image-rendering: pixelated; }
+.xp-icon span { display: block; margin-top: 4px; color: #000080; text-decoration: underline; font-size: 14px; }
+
+/* =================== Shutdown Modal =================== */
+.shutdown-modal { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; }
+.shutdown-box { width: 360px; background: #ece9d8; border: 3px solid #0a246a; border-radius: 8px; padding: 20px; text-align: center; }
+.shutdown-icon { width: 64px; height: 64px; }
+.shutdown-title { font-size: 20px; color: #0a246a; font-weight: bold; margin: 10px 0 20px; }
+.btn { background: #e0e0e0; border: 1px solid #777; padding: 8px 14px; border-radius: 4px; cursor: pointer; margin: 0 6px; }
+.btn:hover { filter: brightness(1.06); }
+.btn.danger { background: #c0392b; color: #fff; border-color: #8e2b22; }
+.btn.primary { background: #2a5bd7; color: #fff; border-color: #0a3fa6; }
+
+/* =================== macOS-style Terminal Modal =================== */
+.terminal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.terminal-window { width: 520px; background: #1e1f22; color: #e8e8e8; border-radius: 10px; box-shadow: 0 0 30px rgba(0,0,0,.6); overflow: hidden; border: 1px solid #2c2c2c; }
+.terminal-titlebar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: linear-gradient(#3b3b3b,#2b2b2b); border-bottom: 1px solid #000; position: relative; }
+.terminal-title-text { position: absolute; left: 50%; transform: translateX(-50%); font-size: 12px; color: #cfcfcf; opacity: .85; }
+.traffic { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.traffic-red { background: #ff5f56; border: 1px solid #e0443e; }
+.traffic-yellow { background: #ffbd2e; border: 1px solid #dea123; }
+.traffic-green { background: #27c93f; border: 1px solid #1aa530; }
+.terminal-body { font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 14px; padding: 16px; }
+.term-line { margin: 0; white-space: pre-wrap; }
+.term-cmd { color: #8be9fd; }
+.term-input { background: transparent; color: #e8e8e8; border: none; outline: none; font: inherit; border-bottom: 1px solid #555; min-width: 240px; }
+.term-input:focus { border-bottom-color: #8be9fd; }
+.term-actions { margin-top: 12px; }
+.term-feedback { margin-top: 8px; color: #ff6b6b; min-height: 18px; }
+
+/* =================== Responsive =================== */
+@media (max-width: 700px) {
+  .login-box { width: 92%; }
+  .terminal-window { width: 92%; }
+}
