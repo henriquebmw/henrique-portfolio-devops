@@ -8,6 +8,10 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") // Kotlin 2.x Compose Compiler
 }
 
+    kotlin {
+        jvmToolchain(17)
+    }
+
 android {
     namespace = "com.musicai.app"
     compileSdk = 36
@@ -47,10 +51,6 @@ android {
     // Compose Compiler (Kotlin 2.x)
     composeCompiler {
         enableStrongSkippingMode = true
-    }
-
-    kotlin {
-        jvmToolchain(17)
     }
 
     compileOptions {

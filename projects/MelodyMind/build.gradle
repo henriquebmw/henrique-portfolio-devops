@@ -1,6 +1,10 @@
 plugins {
+    // Android Gradle Plugin
     id("com.android.application") version "9.0.1" apply false
 
-    // REQUIRED for Compose + Kotlin 2.x
+    // Kotlin Android Plugin (required!)
+    id("org.jetbrains.kotlin.android") version "2.0.21" apply false
+
+    // Kotlin 2.x Compose Compiler Plugin
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" apply false
 }
