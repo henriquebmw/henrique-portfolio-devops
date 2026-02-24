@@ -8,8 +8,9 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") // Kotlin 2.x Compose Compiler
 }
 
-// IMPORTANT: top-level, not inside `android {}`
-// If this is nested inside `android {}`, Gradle may try to create a second kotlin extension.
+/* --------------------------------------------------
+   Kotlin JVM Toolchain — must be top‑level
+   -------------------------------------------------- */
 kotlin {
     jvmToolchain(17)
 }
