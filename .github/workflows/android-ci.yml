@@ -1,0 +1,37 @@
+name: MelodyMind - Android APK Build
+
+on:
+  push:
+    paths:
+      - "projects/MelodyMind/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant execute permission for Gradlew
+      run: chmod +x projects/MelodyMind/gradlew
+
+    - name: Build Debug APK
+      working-directory: projects/MelodyMind
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MelodyMind-debug-apk
+        path: projects/MelodyMind/app/build/outputs/apk/debug/*.apk
