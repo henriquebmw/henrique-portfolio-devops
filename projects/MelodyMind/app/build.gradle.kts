@@ -1,3 +1,7 @@
+import java.util.Properties
+import java.io.FileInputStream
+import java.io.FileOutputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -13,9 +17,11 @@ android {
         minSdk = 24
         targetSdk = 36
 
-        versionCode = 1
+        // Version sourced from gradle.properties
+        versionCode = (project.findProperty("VERSION_CODE") as String).toInt()
         versionName = "1.0"
 
+        // BuildConfig constants from GitHub Secrets or local.properties
         buildConfigField(
             "String",
             "OPENAI_API_KEY",
@@ -38,13 +44,11 @@ android {
         buildConfig = true
     }
 
-    // Compose Compiler (recommended for Kotlin 2.x)
-    // Do NOT use composeOptions {} with Kotlin 2.x
+    // Compose Compiler (Kotlin 2.x)
     composeCompiler {
         enableStrongSkippingMode = true
     }
 
-    // Kotlin JVM Toolchain (AGP 9 recommended)
     kotlin {
         jvmToolchain(17)
     }
@@ -56,19 +60,39 @@ android {
 }
 
 /* --------------------------------------------------
-   CI Helper Tasks — used by GitHub Actions workflow
-   -------------------------------------------------- */
+   CI Helper Tasks (used by GitHub Actions)
+ -------------------------------------------------- */
 tasks.register("printVersionName") {
     doLast { println(android.defaultConfig.versionName) }
 }
-
 tasks.register("printVersionCode") {
     doLast { println(android.defaultConfig.versionCode) }
 }
 
+/* --------------------------------------------------
+   Auto-increment versionCode (CI usage)
+ -------------------------------------------------- */
+tasks.register("bumpVersionCode") {
+    doLast {
+        val gradlePropertiesFile = rootProject.file("gradle.properties")
+        val props = Properties()
+
+        FileInputStream(gradlePropertiesFile).use { props.load(it) }
+
+        val currentCode = props.getProperty("VERSION_CODE")?.toIntOrNull() ?: 1
+        val newCode = currentCode + 1
+
+        props.setProperty("VERSION_CODE", newCode.toString())
+
+        println("🔼 Bumping versionCode: $currentCode → $newCode")
+
+        FileOutputStream(gradlePropertiesFile).use { props.store(it, null) }
+    }
+}
+
 dependencies {
 
-    // Compose BOM — stays in sync with Compose Compiler automatically
+    // Compose BOM (keeps UI libs aligned)
     implementation(platform("androidx.compose:compose-bom:2025.12.00"))
 
     implementation("androidx.compose.ui:ui")
@@ -79,7 +103,7 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.12.4")
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    // Media3 (ExoPlayer + UI)
+    // Media3 (audio/video engine)
     implementation("androidx.media3:media3-exoplayer:1.1.1")
     implementation("androidx.media3:media3-ui:1.1.1")
 
