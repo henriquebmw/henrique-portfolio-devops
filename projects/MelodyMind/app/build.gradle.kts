@@ -8,9 +8,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") // Kotlin 2.x Compose Compiler
 }
 
-    kotlin {
-        jvmToolchain(17)
-    }
+// IMPORTANT: top-level, not inside `android {}`
+// If this is nested inside `android {}`, Gradle may try to create a second kotlin extension.
+kotlin {
+    jvmToolchain(17)
+}
 
 android {
     namespace = "com.musicai.app"
@@ -91,7 +93,6 @@ tasks.register("bumpVersionCode") {
 }
 
 dependencies {
-
     // Compose BOM (keeps UI libs aligned)
     implementation(platform("androidx.compose:compose-bom:2025.12.00"))
 
