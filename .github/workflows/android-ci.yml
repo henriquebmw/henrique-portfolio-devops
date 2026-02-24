@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: projects/MelodyMind   # ensures all run steps are inside module
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -29,15 +33,13 @@ jobs:
         yes | sdkmanager --licenses
 
     - name: Grant execute permission for Gradlew
-      working-directory: projects/MelodyMind
       run: chmod +x gradlew
 
     - name: Build Debug APK
-      working-directory: projects/MelodyMind
       run: ./gradlew :app:assembleDebug --stacktrace
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: MelodyMind-debug-apk
-        path: projects/MelodyMind/app/build/outputs/apk/debug/*.apk
+        path: app/build/outputs/apk/debug/*.apk
