@@ -8,9 +8,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") // Kotlin 2.x Compose Compiler
 }
 
-/* --------------------------------------------------
-   Kotlin JVM Toolchain — must be top‑level
-   -------------------------------------------------- */
+// MUST BE TOP-LEVEL (not inside android {})
 kotlin {
     jvmToolchain(17)
 }
