@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.plugin.compose")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose") // Kotlin 2.x Compose Compiler
 }
 
 android {
@@ -11,12 +12,25 @@ android {
         applicationId = "com.musicai.app"
         minSdk = 24
         targetSdk = 36
+
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "OPENAI_API_KEY", "\"${project.properties['OPENAI_API_KEY'] ?: ""}\"")
-        buildConfigField("String", "SPOTIFY_CLIENT_ID", "\"${project.properties['SPOTIFY_CLIENT_ID'] ?: ""}\"")
-        buildConfigField("String", "SPOTIFY_CLIENT_SECRET", "\"${project.properties['SPOTIFY_CLIENT_SECRET'] ?: ""}\"")
+        buildConfigField(
+            "String",
+            "OPENAI_API_KEY",
+            "\"${project.findProperty("OPENAI_API_KEY") ?: ""}\""
+        )
+        buildConfigField(
+            "String",
+            "SPOTIFY_CLIENT_ID",
+            "\"${project.findProperty("SPOTIFY_CLIENT_ID") ?: ""}\""
+        )
+        buildConfigField(
+            "String",
+            "SPOTIFY_CLIENT_SECRET",
+            "\"${project.findProperty("SPOTIFY_CLIENT_SECRET") ?: ""}\""
+        )
     }
 
     buildFeatures {
@@ -24,11 +38,13 @@ android {
         buildConfig = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.6.0"
+    // Compose Compiler (recommended for Kotlin 2.x)
+    // Do NOT use composeOptions {} with Kotlin 2.x
+    composeCompiler {
+        enableStrongSkippingMode = true
     }
 
-    // ✔ AGP 9 Kotlin configuration
+    // Kotlin JVM Toolchain (AGP 9 recommended)
     kotlin {
         jvmToolchain(17)
     }
@@ -39,8 +55,22 @@ android {
     }
 }
 
+/* --------------------------------------------------
+   CI Helper Tasks — used by GitHub Actions workflow
+   -------------------------------------------------- */
+tasks.register("printVersionName") {
+    doLast { println(android.defaultConfig.versionName) }
+}
+
+tasks.register("printVersionCode") {
+    doLast { println(android.defaultConfig.versionCode) }
+}
+
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2026.02.00"))
+
+    // Compose BOM — stays in sync with Compose Compiler automatically
+    implementation(platform("androidx.compose:compose-bom:2025.12.00"))
+
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -49,16 +79,18 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.12.4")
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
+    // Media3 (ExoPlayer + UI)
     implementation("androidx.media3:media3-exoplayer:1.1.1")
     implementation("androidx.media3:media3-ui:1.1.1")
 
+    // Networking stack
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
+    // Images + Coroutines + Architecture
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 }
