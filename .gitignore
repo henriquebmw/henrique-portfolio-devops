@@ -3,3 +3,7 @@ gradle_temp/
 projects/MelodyMind/.gradle/
 projects/MelodyMind/.gradle/
 .vscode/
+
+# Editors/Backups
+*.bak
+.vscode/
