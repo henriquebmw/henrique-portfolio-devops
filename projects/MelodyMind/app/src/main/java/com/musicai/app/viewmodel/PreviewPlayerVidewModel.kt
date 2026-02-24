@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.media3.common.AudioRendererEventListener
 import androidx.media3.common.Format
+import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.audio.AudioSink
@@ -14,38 +15,37 @@ import java.nio.ByteOrder
 
 /**
  * PreviewPlayerViewModel:
- * - Plays Spotify preview URLs using Media3 ExoPlayer
- * - Captures PCM audio frames from the player in real-time
- * - Streams waveform & forwards PCM to AnalyzeViewModel
+ * - Plays preview URLs using Media3 ExoPlayer
+ * - Captures PCM frames from the player (real-time)
+ * - Produces live waveform
+ * - Can forward PCM to AnalyzeViewModel for BPM/Key analysis
  */
-class PreviewPlayerViewModel(
-    application: Application
-) : AndroidViewModel(application) {
+class PreviewPlayerViewModel(application: Application) : AndroidViewModel(application) {
 
     private val player = ExoPlayer.Builder(application).build()
 
-    /** Real-time "is playing" state for UI */
-    private val _isPlaying = MutableStateFlow(false)
-    val isPlaying: StateFlow<Boolean> = _isPlaying
-
-    /** Live PCM waveform streamed from the player */
+    /** Real-time waveform streamed as FloatArray for UI */
     val liveWaveform = MutableStateFlow(FloatArray(0))
 
-    /** Optional analyzer target */
+    /** Optional analyzer downstream (AnalyzeViewModel) */
     var analyzeViewModel: AnalyzeViewModel? = null
 
     fun attachAnalyzer(vm: AnalyzeViewModel) {
         analyzeViewModel = vm
     }
 
+    /** Player state */
+    private val _isPlaying = MutableStateFlow(false)
+    val isPlaying: StateFlow<Boolean> = _isPlaying
+
     private var currentUrl: String? = null
 
+    /** Play a preview URL with automatic prepare */
     fun play(url: String) {
         if (url != currentUrl) {
             currentUrl = url
-            player.setMediaItem(
-                androidx.media3.common.MediaItem.fromUri(url)
-            )
+            val mediaItem = MediaItem.fromUri(url)
+            player.setMediaItem(mediaItem)
             player.prepare()
         }
         player.playWhenReady = true
@@ -57,16 +57,13 @@ class PreviewPlayerViewModel(
         _isPlaying.value = false
     }
 
-    // -----------------------------------------------------------
-    // REAL-TIME PCM CAPTURE FROM EXOPLAYER (Media3)
-    // -----------------------------------------------------------
+    // -----------------------------------------------------------------------------------------
+    //  PCM Capture Listener
+    // -----------------------------------------------------------------------------------------
     @OptIn(UnstableApi::class)
     private val audioListener = object : AudioRendererEventListener {
 
-        override fun onAudioInputFormatChanged(
-            format: Format,
-            unused: AudioSink.Configuration?
-        ) {
+        override fun onAudioInputFormatChanged(format: Format, unused: AudioSink.Configuration?) {
             // no-op
         }
 
@@ -75,7 +72,7 @@ class PreviewPlayerViewModel(
         }
 
         override fun onAudioDataEncoded(data: ByteArray, size: Int) {
-            // no-op (rare case)
+            // Rare case; ignore
         }
 
         override fun onAudioUnderrun(
@@ -91,8 +88,10 @@ class PreviewPlayerViewModel(
             offset: Int,
             size: Int
         ) {
-            // Convert byte PCM → short PCM
-            val shorts = ShortArray(size / 2)
+            // Convert bytes -> PCM samples
+            val shortCount = size / 2
+            val shorts = ShortArray(shortCount)
+
             ByteBuffer.wrap(buffer, offset, size)
                 .order(ByteOrder.LITTLE_ENDIAN)
                 .asShortBuffer()
@@ -103,15 +102,15 @@ class PreviewPlayerViewModel(
     }
 
     private fun onPcmCaptured(pcm: ShortArray) {
-        // For visual waveform:
+        // Live waveform for UI (range -1.0..1.0)
         liveWaveform.value = pcm.map { it / 32768f }.toFloatArray()
 
-        // For BPM/key analysis:
+        // Forward to audio analyzer if attached
         analyzeViewModel?.analyze(pcm, 44100)
     }
 
     init {
-        // Register listener ONCE
+        // Register PCM listener ONCE
         player.addAudioDebugListener(audioListener)
     }
 
