@@ -1,17 +1,2 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    // Se no futuro precisares de classpath explícito para AGP, adiciona aqui:
-    // dependencies {
-    //     classpath "com.android.tools.build:gradle:8.2.2"
-    // }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
+// Root build.gradle left intentionally empty.
+// All repositories are defined in settings.gradle.
