@@ -23,12 +23,18 @@ jobs:
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
 
+    - name: Install Android platform & build-tools
+      run: |
+        sdkmanager --install "platforms;android-34" "build-tools;34.0.0" "platform-tools"
+        yes | sdkmanager --licenses
+
     - name: Grant execute permission for Gradlew
-      run: chmod +x projects/MelodyMind/gradlew
+      working-directory: projects/MelodyMind
+      run: chmod +x gradlew
 
     - name: Build Debug APK
       working-directory: projects/MelodyMind
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew :app:assembleDebug --stacktrace
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
