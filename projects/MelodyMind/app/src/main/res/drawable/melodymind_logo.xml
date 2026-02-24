@@ -1,0 +1,18 @@
+<!-- res/drawable/melodymind_logo.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="128dp" android:height="128dp"
+    android:viewportWidth="128" android:viewportHeight="128">
+    <!-- circular gradient background -->
+    <path android:fillColor="@color/mm_purple"
+        android:pathData="M64,8a56,56 0 1,0 0,112a56,56 0 1,0 0,-112z"/>
+    <!-- note -->
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M78,32 l0,42 c0,8 -8,14 -16,14 c-7,0 -12,-3 -12,-8 c0,-6 6,-10 12,-10 c2,0 4,0 6,1 l0,-28 l10,-5 z"/>
+    <!-- subtle wave -->
+    <path
+        android:strokeColor="@color/mm_white"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M30,90 C42,82 54,96 66,88 C78,80 90,94 102,86"/>
+</vector>

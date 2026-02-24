@@ -1,0 +1,30 @@
+<!-- mic -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24"
+    android:name="ic_mic_solid">
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M12,3a3,3 0 0,1 3,3v6a3,3 0 0,1 -6,0V6a3,3 0 0,1 3,-3z M6,11h2a4,4 0 0,0 8,0h2a6,6 0 0,1 -12,0z M11,19h2v2h-2z"/>
+</vector>
+
+<!-- upload -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24"
+    android:name="ic_upload_solid">
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M5,20h14v-2H5z M12,4l4,4h-3v6h-2V8H8z"/>
+</vector>
+
+<!-- play / pause -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24"
+    android:name="ic_play_solid">
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M8,5v14l11,-7z"/>
+</vector>
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24"
+    android:name="ic_pause_solid">
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M6,5h4v14H6z M14,5h4v14h-4z"/>
+</vector>

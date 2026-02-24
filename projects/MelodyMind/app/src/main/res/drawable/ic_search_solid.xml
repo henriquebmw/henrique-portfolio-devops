@@ -1,0 +1,15 @@
+<!-- res/drawable/ic_search_solid.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="@color/mm_white"
+        android:pathData="M10,3a7,7 0 1,0 0,14a7,7 0 0,0 0,-14z M21,21 l-5.2,-5.2 1.4,-1.4L22.4,19.6 21,21z"/>
+</vector>
+
+<!-- res/drawable/ic_search_outline.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:strokeColor="@color/mm_white" android:strokeWidth="2" android:fillColor="@android:color/transparent"
+        android:pathData="M10,3a7,7 0 1,0 0,14a7,7 0 0,0 0,-14z"/>
+    <path android:strokeColor="@color/mm_white" android:strokeWidth="2" android:fillColor="@android:color/transparent"
+        android:pathData="M21,21 l-5.2,-5.2"/>
+</vector>

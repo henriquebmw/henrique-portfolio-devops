@@ -1,0 +1,19 @@
+<!-- res/drawable/ic_launcher_foreground.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+
+    <!-- Music note head -->
+    <path
+        android:fillColor="@color/mm_white"
+        android:pathData="M66,30 l0,40 c0,9 -9,16 -18,16 c-8,0 -14,-4 -14,-9 c0,-7 7,-12 14,-12 c3,0 5,1 8,2 l0,-31 l10,-6 z"/>
+
+    <!-- Wave (stylized curve) -->
+    <path
+        android:strokeColor="@color/mm_white"
+        android:strokeWidth="3"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M24,70 C34,64 44,78 54,72 C64,66 74,80 84,74"/>
+
+</vector>

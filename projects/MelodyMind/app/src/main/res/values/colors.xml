@@ -1,5 +1,19 @@
 <resources>
-    <color name="mm_purple">#6C5CE7</color>
+    <!-- Brand Colors -->
     <color name="mm_blue">#1DA1F2</color>
+    <color name="mm_purple">#6C5CE7</color>
     <color name="mm_white">#FFFFFF</color>
+    <color name="mm_black">#000000</color>
+
+    <!-- Material Theme Base Colors (fallback / system) -->
+    <color name="colorPrimary">@color/mm_purple</color>
+    <color name="colorSecondary">@color/mm_blue</color>
+    <color name="colorBackground">#0B0B10</color>
+
+    <!-- Icon Stroke Color (used in outline icons) -->
+    <color name="mm_icon_stroke">@color/mm_white</color>
+
+    <!-- Optional UI extras -->
+    <color name="mm_surface_dark">#141421</color>
+    <color name="mm_surface_light">#F7F8FC</color>
 </resources>

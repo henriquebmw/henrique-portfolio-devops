@@ -1,16 +1,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Internet access (AI, Spotify API, images, etc.) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Microphone recording (real‑time waveform + audio analyzer) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <!-- Optional: File picker MP3/WAV (read external files) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
     <application
+        android:name=".App"   <!-- Optional if you create App.kt; safe to leave out -->
         android:label="MelodyMind"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher"   <!-- THIS IS IMPORTANT -->
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:exported="true"
         android:allowBackup="true"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
         <activity
             android:name="com.musicai.app.MainActivity"
-            android:exported="true">
-
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
