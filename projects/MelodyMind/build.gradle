@@ -1,2 +1,1 @@
-// Root build.gradle left intentionally empty.
-// All repositories are defined in settings.gradle.
+// empty root build.gradle - repositories are defined in settings.gradle
