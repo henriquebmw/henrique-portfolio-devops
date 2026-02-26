@@ -66,9 +66,11 @@ jobs:
         run: |
           git config --global user.email "ci-bot@github.com"
           git config --global user.name "CI Bot"
-          git add ../gradle.properties
+          git add gradle.properties
           git commit -m "CI: Bump versionCode" || echo "No changes to commit"
-          git push
+          git push origin HEAD:${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ------------------------------------------------------
       # EXTRACT VERSION INFO
