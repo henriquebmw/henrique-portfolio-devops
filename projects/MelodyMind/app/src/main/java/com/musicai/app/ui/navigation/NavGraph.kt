@@ -12,6 +12,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.musicai.app.ui.screens.AiAssistantScreen
 import com.musicai.app.ui.screens.AnalyzeScreen
+import com.musicai.app.ui.screens.ChatScreen
 import com.musicai.app.ui.screens.HomeScreen
 import com.musicai.app.ui.screens.SpotifySearchScreen
 
@@ -51,7 +52,7 @@ fun RootNav() {
                 HomeScreen(
                     onOpenSearch = { navigateTo(Dest.Search.route) },
                     onOpenAnalyze = { navigateTo(Dest.Analyze.route) },
-                    onOpenAi = { navigateTo(Dest.AiAssistant.route) }
+                    onOpenAi = { navigateTo(Dest.AiAssistant.route) },
                     onOpenChat = { nav.navigate(Dest.Chat.route) }
                 )
             }

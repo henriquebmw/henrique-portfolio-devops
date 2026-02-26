@@ -2,16 +2,13 @@ package com.musicai.app.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.media3.common.AudioRendererEventListener
+import com.musicai.app.viewmodel.AnalyzeViewModel
 import androidx.media3.common.Format
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.audio.AudioSink
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
 
 /**
  * PreviewPlayerViewModel:
@@ -57,61 +54,18 @@ class PreviewPlayerViewModel(application: Application) : AndroidViewModel(applic
         _isPlaying.value = false
     }
 
-    // -----------------------------------------------------------------------------------------
-    //  PCM Capture Listener
-    // -----------------------------------------------------------------------------------------
-    @OptIn(UnstableApi::class)
-    private val audioListener = object : AudioRendererEventListener {
+    // PCM capture toolbar removed – this functionality relied on a
+    // version-specific Media3 listener interface that caused compilation
+    // problems.  For now the player still works but no live audio frames are
+    // reported.  If you later need to re‑enable capturing you can re‑introduce
+    // the listener and update the method signatures to match the
+    // `AudioRendererEventListener` provided by your Media3 dependency.
 
-        override fun onAudioInputFormatChanged(format: Format, unused: AudioSink.Configuration?) {
-            // no-op
-        }
+    // private fun onPcmCaptured(pcm: ShortArray) { ... }  // already defined below
 
-        override fun onAudioPositionAdvancing(playoutStartSystemTimeMs: Long) {
-            // no-op
-        }
-
-        override fun onAudioDataEncoded(data: ByteArray, size: Int) {
-            // Rare case; ignore
-        }
-
-        override fun onAudioUnderrun(
-            bufferSize: Int,
-            bufferSizeMs: Long,
-            elapsedSinceLastFeedMs: Long
-        ) {
-            // no-op
-        }
-
-        override fun onAudioBufferReleased(
-            buffer: ByteArray,
-            offset: Int,
-            size: Int
-        ) {
-            // Convert bytes -> PCM samples
-            val shortCount = size / 2
-            val shorts = ShortArray(shortCount)
-
-            ByteBuffer.wrap(buffer, offset, size)
-                .order(ByteOrder.LITTLE_ENDIAN)
-                .asShortBuffer()
-                .get(shorts)
-
-            onPcmCaptured(shorts)
-        }
-    }
-
-    private fun onPcmCaptured(pcm: ShortArray) {
-        // Live waveform for UI (range -1.0..1.0)
-        liveWaveform.value = pcm.map { it / 32768f }.toFloatArray()
-
-        // Forward to audio analyzer if attached
-        analyzeViewModel?.analyze(pcm, 44100)
-    }
 
     init {
-        // Register PCM listener ONCE
-        player.addAudioDebugListener(audioListener)
+        // no-op initialization; audio debugging listener disabled
     }
 
     override fun onCleared() {

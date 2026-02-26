@@ -6,6 +6,7 @@ import com.musicai.app.ai.AiEngine
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 
 data class AiAssistantState(
     val theme: String = "",
@@ -42,15 +43,17 @@ class AiAssistantViewModel(
             try {
                 _state.value = s.copy(loading = true, error = null)
 
-                val (lyrics, chords) = kotlinx.coroutines.async {
+                // launch both requests in parallel using the same scope
+                val lyricsDeferred = async {
                     engine.generateLyrics(s.theme, s.mood, lines = 8)
-                } to kotlinx.coroutines.async {
+                }
+                val chordsDeferred = async {
                     engine.suggestChords(s.key, s.mode, s.style, bars = 4)
                 }
 
                 _state.value = _state.value.copy(
-                    lyrics = lyrics.await(),
-                    chords = chords.await(),
+                    lyrics = lyricsDeferred.await(),
+                    chords = chordsDeferred.await(),
                     loading = false
                 )
             } catch (e: Exception) {

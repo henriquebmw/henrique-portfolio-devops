@@ -173,6 +173,24 @@ class AudioAnalyzer {
     }
 
     /**
+     * Simple chord/key transposition helper.  Accepts names like "C"/"Am"/"F#".
+     * Returns the same chord shifted by the specified number of semitones.
+     * Uses only chromatic semitone stepping, no accidentals conversion.
+     */
+    fun transposeKey(original: String, semitones: Int): String {
+        val semis = listOf("C","C#","D","D#","E","F","F#","G","G#","A","A#","B")
+        if (original.isBlank()) return original
+        // strip potential minor indicator
+        val base = original.trimEnd('m','M','\#','b')
+        val idx = semis.indexOfFirst { it.equals(base, true) }
+        if (idx < 0) return original
+        val newIdx = (idx + semitones + semis.size) % semis.size
+        var result = semis[newIdx]
+        if (original.endsWith("m", ignoreCase = true)) result += "m"
+        return result
+    }
+
+    /**
      * YIN-like fundamental frequency estimation (simplified)
      */
     private fun estimateF0(x: FloatArray, start: Int, win: Int, fs: Int): Float {

@@ -38,48 +38,11 @@ fun HomeScreen(
     onOpenSearch: () -> Unit = {},
     onOpenAnalyze: () -> Unit = {},
     onOpenAi: () -> Unit = {},
-    onOpenChat: () -> Unit = {} // ready for your Chat screen
+    onOpenChat: () -> Unit = {}
 ) {
     val gradient = Brush.verticalGradient(
         listOf(Color(0xFF1DA1F2), Color(0xFF6C5CE7))
     )
-@Composable
-fun HomeScreen(
-    onOpenSearch: () -> Unit = {},
-    onOpenAnalyze: () -> Unit = {},
-    onOpenAi: () -> Unit = {},
-    onOpenChat: () -> Unit = {}
-) {
-    // TiltCards com ícones (AGORA 4 cartas)
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TiltCard(
-            title = "Search",
-            iconRes = R.drawable.ic_search_solid,
-            color = Color(0xFF65E0A3),
-            onClick = onOpenSearch
-        )
-        TiltCard(
-            title = "Analyze",
-            iconRes = R.drawable.ic_analyze_solid,
-            color = Color(0xFFEBC85E),
-            onClick = onOpenAnalyze
-        )
-        TiltCard(
-            title = "AI",
-            iconRes = R.drawable.ic_ai_solid,
-            color = Color(0xFFE06666),
-            onClick = onOpenAi
-        )
-        TiltCard(
-            title = "Chat",
-            iconRes = R.drawable.ic_chat_solid,
-            color = Color(0xFF8A4FFF),
-            onClick = onOpenChat
-        )
-    }
 }
 
     Box(

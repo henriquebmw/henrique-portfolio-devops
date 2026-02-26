@@ -76,6 +76,9 @@ class SpotifyApi(
     private val clientSecret: String
 ) {
 
+    // simple in-memory cache keyed by query string
+    private val searchCache = mutableMapOf<String, List<SpotifyTrack>>()
+
     private val http by lazy {
         val log = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
         OkHttpClient.Builder().addInterceptor(log).build()
@@ -107,7 +110,13 @@ class SpotifyApi(
 
     suspend fun search(query: String, limit: Int = 20): List<SpotifyTrack> =
         withContext(Dispatchers.IO) {
+            // return cached copy if present
+            searchCache[query]?.let { return@withContext it }
+
             val token = bearerToken()
-            retrofitApi.searchTracks(token, query, "track", limit).tracks?.items ?: emptyList()
+            val results = retrofitApi.searchTracks(token, query, "track", limit).tracks?.items ?: emptyList()
+            // cache result for offline reuse during session
+            searchCache[query] = results
+            results
         }
 }

@@ -1,121 +1,68 @@
-package com.musicai.app.ui.screens
+package com.musicai.app.viewmodel
 
-import android.Manifest
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.musicai.app.viewmodel.AnalyzeViewModel
-import com.musicai.app.ui.components.MicWaveform
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.musicai.app.audio.AudioAnalyzer
+import com.musicai.app.audio.MicRecorder
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-@Composable
-fun AnalyzeScreen(vm: AnalyzeViewModel = viewModel()) {
+/**
+ * ViewModel that drives the real‑time audio analyzer UI.
+ *
+ * Responsibilities:
+ *  - start/stop microphone capture
+ *  - forward PCM to AudioAnalyzer and publish results
+ *  - expose live waveform and analysis state as flows
+ */
+class AnalyzeViewModel : ViewModel() {
 
-    // Collect states from ViewModel
-    val analyzeState by vm.state.collectAsState()
-    val liveWave by vm.liveWaveform.collectAsState()
+    data class State(
+        val bpm: Int? = null,
+        val key: String? = null,
+        val confidence: Float = 0f,
+        val waveform: FloatArray = FloatArray(0),
+        val error: String? = null
+    )
 
-    val context = LocalContext.current
+    private val analyzer = AudioAnalyzer()
 
-    // Permission launcher for microphone
-    val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) vm.startMicrophone()
+    /** convenient helper wrapping the analyzer transpose method */
+    fun transposeKey(chord: String, semitones: Int): String =
+        analyzer.transposeKey(chord, semitones)
+    private val recorder = MicRecorder()
+
+    private val _state = MutableStateFlow(State())
+    val state: StateFlow<State> = _state
+
+    private val _liveWaveform = MutableStateFlow(FloatArray(0))
+    val liveWaveform: StateFlow<FloatArray> = _liveWaveform
+
+    fun startMicrophone() {
+        recorder.start { pcm ->
+            // update live waveform quickly
+            _liveWaveform.value = pcm.map { it / 32768f }.toFloatArray()
+
+            // run analyzer on background thread
+            viewModelScope.launch {
+                try {
+                    val result = analyzer.analyze(pcm, 44100)
+                    _state.value = _state.value.copy(
+                        bpm = result.bpm,
+                        key = result.key,
+                        confidence = result.confidence,
+                        waveform = result.waveform,
+                        error = null
+                    )
+                } catch (e: Exception) {
+                    _state.value = _state.value.copy(error = e.message ?: "unknown")
+                }
+            }
+        }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-
-        Text("Real‑Time Audio Analyzer", style = MaterialTheme.typography.headlineMedium)
-
-        // -------------------------------------------------------
-        // Microphone Controls
-        // -------------------------------------------------------
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Button(onClick = {
-                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-            }) {
-                Text("Start Microphone")
-            }
-
-            OutlinedButton(onClick = vm::stopMicrophone) {
-                Text("Stop")
-            }
-        }
-
-        // -------------------------------------------------------
-        // Live Microphone Waveform
-        // -------------------------------------------------------
-        Text("Live Waveform", style = MaterialTheme.typography.titleMedium)
-
-        if (liveWave.isNotEmpty()) {
-            MicWaveform(liveWave)
-        } else {
-            Text("Microphone inactive.", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
-
-        Divider()
-
-        // -------------------------------------------------------
-        // Final Audio Analysis (Runs Every PCM Chunk)
-        // -------------------------------------------------------
-        Text("Analysis Result", style = MaterialTheme.typography.titleMedium)
-
-        Text("BPM: ${analyzeState.bpm ?: "?"}")
-        Text("Key: ${analyzeState.key ?: "?"}")
-        Text("Confidence: ${(analyzeState.confidence * 100).toInt()}%")
-
-        analyzeState.error?.let {
-            Text("Error: $it", color = MaterialTheme.colorScheme.error)
-        }
-
-        Divider()
-
-        // -------------------------------------------------------
-        // Static Captured Waveform (From Last Full Analysis)
-        // -------------------------------------------------------
-        if (analyzeState.waveform.isNotEmpty()) {
-            Text("Captured Waveform", style = MaterialTheme.typography.titleMedium)
-            CapturedWaveform(analyzeState.waveform)
-        }
-    }
-}
-
-@Composable
-private fun CapturedWaveform(wave: FloatArray) {
-    Canvas(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(120.dp)
-    ) {
-        val width = size.width
-        val height = size.height
-        val step = width / wave.size
-
-        var x = 0f
-        for (i in wave.indices) {
-            val y = (height / 2f) - (wave[i] * (height / 2f))
-
-            drawLine(
-                color = Color(0xFF6C5CE7),
-                start = Offset(x, height / 2f),
-                end = Offset(x, y),
-                strokeWidth = 2f
-            )
-            x += step
-        }
+    fun stopMicrophone() {
+        recorder.stop()
     }
 }
