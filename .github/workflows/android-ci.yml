@@ -49,6 +49,8 @@ jobs:
 
       - name: Install Android Platform + Build Tools
         run: |
+          # ensure we have the correct command-line tools version
+          sdkmanager --install "cmdline-tools;12.0"
           sdkmanager --install "platforms;android-36" "build-tools;35.0.0" "platform-tools"
           yes | sdkmanager --licenses
 
