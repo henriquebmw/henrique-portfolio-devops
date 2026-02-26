@@ -1,5 +1,5 @@
-<!-- res/drawable/melodymind_logo.xml -->
 <?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/melodymind_logo.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="128dp" android:height="128dp"
     android:viewportWidth="128" android:viewportHeight="128">
