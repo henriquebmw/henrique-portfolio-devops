@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.musicai.app.auth.CredentialsStore
+import com.musicai.app.BuildConfig
 
 class SpotifyViewModel(application: Application) : AndroidViewModel(application) {
 

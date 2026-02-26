@@ -43,7 +43,6 @@ fun HomeScreen(
     val gradient = Brush.verticalGradient(
         listOf(Color(0xFF1DA1F2), Color(0xFF6C5CE7))
     )
-}
 
     Box(
         modifier = Modifier

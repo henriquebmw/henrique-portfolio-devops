@@ -181,7 +181,7 @@ class AudioAnalyzer {
         val semis = listOf("C","C#","D","D#","E","F","F#","G","G#","A","A#","B")
         if (original.isBlank()) return original
         // strip potential minor indicator
-        val base = original.trimEnd('m','M','\#','b')
+        val base = original.trimEnd('m','M','#','b')
         val idx = semis.indexOfFirst { it.equals(base, true) }
         if (idx < 0) return original
         val newIdx = (idx + semitones + semis.size) % semis.size
