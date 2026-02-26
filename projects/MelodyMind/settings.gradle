@@ -1,10 +1,22 @@
 pluginManagement {
     repositories {
         google()
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
+    }
+
+    plugins {
+        // Android Gradle Plugin
+        id("com.android.application") version "9.0.1"
+
+        // Kotlin Android plugin (Kotlin 2.x)
+        id("org.jetbrains.kotlin.android") version "2.0.21"
+
+        // Kotlin Compose Compiler (required for Compose with Kotlin 2.x)
+        id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,5 +24,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "MelodyMind"
 include(":app")
+w
