@@ -4,7 +4,9 @@ import java.io.FileOutputStream
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    // Kotlin Android plugin is pulled in automatically by the Compose plugin
+    // (and also available via settings.gradle pluginManagement) so don't apply
+    // it explicitly here to avoid duplicate-extension errors.
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.21" // Kotlin 2.x Compose Compiler
 }
 
